@@ -1,11 +1,20 @@
 import { axiosSignin } from "@/services/axiosClient";
 import { useUserStore } from "@/store/useStore";
-import { toastError, toastSuccess } from "@/util/toastify";
+import { toastError, toastInfo, toastSuccess } from "@/util/toastify";
 import { setCookie } from "cookies-next";
 
 export const Login = async (form: object) => {
+  const api = process.env.NEXT_PUBLIC_API_SIGN_IN || "/auth/sign-in";
   try {
-    const response = await axiosSignin.post("/auth/signin", form);
+    const response = await axiosSignin.post(api, form);
+    if (response.data.status === 401) {
+      toastInfo("Credenciais incorretas.");
+      return;
+    }
+    if (response.data.status === 404) {
+      toastInfo("Não foi possível encontrar nenhum usuário com este email!");
+      return;
+    }
     if (!response.data.error) {
       const { setUser } = useUserStore.getState();
 
@@ -16,7 +25,7 @@ export const Login = async (form: object) => {
       toastSuccess(`Bem-vindo ${user.name}!`);
     }
   } catch (error) {
-    console.log(`Erro ao fazer login: ${error}`);
-    toastError("Erro ao fazer login");
+    toastError(`Erro ao fazer login ${error}`);
   }
+  return {};
 };

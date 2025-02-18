@@ -1,20 +1,15 @@
-"use server";
 import { SigninApi } from "@/interface/login.interface";
+import { axiosSignin } from "@/services/axiosClient";
 import { toastError, toastSuccess } from "@/util/toastify";
-import axios from "axios";
 
 export const createUser = async (userData: object) => {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const apiUrl = process.env.NEXT_PUBLIC_API_SIGN_UP || "/users/sign-up";
 
-    const response = await axios.post<SigninApi>(
-      `${apiUrl}/users/signup`,
-      userData
-    );
+    await axiosSignin.post<SigninApi>(`${apiUrl}`, userData);
 
-    console.log(response.data);
     toastSuccess("Usuário criado com sucesso!");
-  } catch {
-    toastError("Erro ao criar o usuário");
+  } catch (error) {
+    toastError(`Erro ao criar o usuário ${error}`);
   }
 };
