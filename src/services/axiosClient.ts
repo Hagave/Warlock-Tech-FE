@@ -1,17 +1,31 @@
 import { useUserStore } from "@/store/useStore";
 import axios from "axios";
 
-const { user } = useUserStore.getState();
+const getAuthHeader = () => {
+  const { user } = useUserStore.getState();
+  return user?.token?.access_token ? `Bearer ${user.token.access_token}` : "";
+};
 
 export const axiosSignin = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000",
-  headers: {},
 });
 
 export const axiosClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000",
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${user?.token.access_token}`,
   },
 });
+
+axiosClient.interceptors.request.use(
+  (config) => {
+    const authHeader = getAuthHeader();
+    if (authHeader) {
+      config.headers["Authorization"] = authHeader;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
