@@ -11,6 +11,10 @@ export const Login = async (form: object) => {
       toastInfo("Credenciais incorretas.");
       return;
     }
+    if (response.data.status === 404) {
+      toastInfo("Não foi possível encontrar nenhum usuário com este email!");
+      return;
+    }
     if (!response.data.error) {
       const { setUser } = useUserStore.getState();
 

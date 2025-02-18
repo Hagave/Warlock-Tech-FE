@@ -1,5 +1,5 @@
 import { useUserStore } from "@/store/useStore";
-import { useSignOut } from "@/util/signOut";
+import { useSignOut } from "@/util/useSignOut";
 import Link from "next/link";
 import React from "react";
 
@@ -35,7 +35,7 @@ const Nav = () => {
         </ul>
 
         <button
-          onClick={useSignOut}
+          onClick={useSignOut()}
           className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition"
         >
           Deslogar
