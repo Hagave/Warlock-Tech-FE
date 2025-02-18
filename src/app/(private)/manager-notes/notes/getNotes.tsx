@@ -30,6 +30,7 @@ export const useNotes = () => {
 
   useEffect(() => {
     fetchNotes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.token?.access_token, api]);
 
   return { notes, fetchNotes }; // Retorne a função de refresh

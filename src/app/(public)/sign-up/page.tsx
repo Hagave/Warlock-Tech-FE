@@ -31,7 +31,7 @@ const Page = () => {
       await createUser(userData);
       resetFormData();
       setLoading(false);
-      router.push("signin");
+      router.push("sign-in");
     } catch (error) {
       console.log(
         "Houve um erro inesperado. Por favor, atualize a pagina e tente novamente",

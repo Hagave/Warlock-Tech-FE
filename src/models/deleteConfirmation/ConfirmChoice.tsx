@@ -9,7 +9,7 @@ const ConfirmChoice: React.FC<Choiceprops> = ({
 }) => {
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+      <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-[50rem]">
         <div className="text-center mb-6">
           <span className="text-lg font-semibold">
             Tem certeza que deseja excluir?
