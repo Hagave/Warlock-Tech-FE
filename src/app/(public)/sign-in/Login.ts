@@ -4,9 +4,9 @@ import { toastError, toastInfo, toastSuccess } from "@/util/toastify";
 import { setCookie } from "cookies-next";
 
 export const Login = async (form: object) => {
-  const api = process.env.NEXT_PUBLIC_API_SIGN_IN || "/auth/sign-in";
+  const api = process.env.NEXT_PUBLIC_API_SIGN_IN;
   try {
-    const response = await axiosSignin.post(api, form);
+    const response = await axiosSignin.post(`${api}`, form);
     if (response.data.status === 401) {
       toastInfo("Credenciais incorretas.");
       return;

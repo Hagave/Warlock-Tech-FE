@@ -4,7 +4,7 @@ import { toastError, toastSuccess } from "@/util/toastify";
 
 export const createUser = async (userData: object) => {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_SIGN_UP || "/users/sign-up";
+    const apiUrl = process.env.NEXT_PUBLIC_API_SIGN_UP;
 
     await axiosSignin.post<SigninApi>(`${apiUrl}`, userData);
 
