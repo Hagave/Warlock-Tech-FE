@@ -1,4 +1,3 @@
-import { IUserPatch } from "@/interface/user.patch.interface";
 import { axiosClient } from "@/services/axiosClient";
 import { useUserStore } from "@/store/useStore";
 import {
@@ -13,7 +12,7 @@ export const updateUserProfile = async (data: object) => {
   const api = process.env.NEXT_PUBLIC_PATCH_USER;
 
   try {
-    const response = await axiosClient.patch<IUserPatch>(`${api}`, data);
+    const response = await axiosClient.patch(`${api}`, data);
     if (!response.data.success) {
       toastInfo(`${response.data.message}`);
       return;
