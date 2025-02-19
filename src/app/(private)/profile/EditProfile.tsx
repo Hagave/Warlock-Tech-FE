@@ -1,8 +1,7 @@
 import { Input } from "@/components/Input/input";
 import { Label } from "@/components/Label/label";
-import { useHandleForm } from "@/hooks/useHandleForm";
-import React, { useEffect, useState } from "react";
-import { updateUserProfile } from "./updateUserProfile";
+import React from "react";
+import { useEditProfile } from "@/hooks/users/useEditProfile";
 
 interface EditProfile {
   closePage: () => void;
@@ -10,25 +9,8 @@ interface EditProfile {
 }
 
 export const EditProfile = ({ closePage, userData }: EditProfile) => {
-  const { handleChange, form, resetFormData } = useHandleForm();
-  const [newPassword, setNewPassword] = useState(false);
-
-  useEffect(() => {
-    resetFormData();
-    Object.entries(userData).forEach(([key, value]) => {
-      handleChange({
-        target: { name: key, value },
-      } as React.ChangeEvent<HTMLInputElement>);
-    });
-  }, [userData]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const success = await updateUserProfile(form);
-    if (success) {
-      closePage();
-    }
-  };
+  const { form, handleSubmit, handleChange, newPassword, setNewPassword } =
+    useEditProfile({ closePage, userData });
 
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50 shadow-md">

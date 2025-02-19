@@ -1,10 +1,10 @@
-import { User } from "@/interface/userInterface";
+import { IUser } from "@/interface/user.interface";
 import { create } from "zustand";
 import { persist, StorageValue } from "zustand/middleware";
 
 interface AuthStore {
-  user: User | null;
-  setUser: (user: User) => void;
+  user: IUser | null;
+  setUser: (user: IUser) => void;
   signOut: () => void;
 }
 
@@ -20,7 +20,7 @@ export const useUserStore = create<AuthStore>()(
       storage: {
         getItem: (key): StorageValue<AuthStore> | null => {
           const value = sessionStorage.getItem(key);
-          return value ? JSON.parse(value) : null; // Corrige o erro de tipagem
+          return value ? JSON.parse(value) : null;
         },
         setItem: (key, value) => {
           sessionStorage.setItem(key, JSON.stringify(value));

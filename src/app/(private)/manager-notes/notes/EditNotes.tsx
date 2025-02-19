@@ -1,36 +1,17 @@
-import React, { useEffect } from "react";
-import { useHandleForm } from "@/hooks/useHandleForm";
-import { useEditOneNote } from "./editNote.ts";
+import { useEditeNote } from "@/hooks/notes/useEditNote";
+import React from "react";
 
-interface EditeNoteProps {
+interface EditNoteProps {
   exit: () => void;
   noteId: number;
   noteData: { title: string; description: string };
 }
-
-export const EditeNote = ({ noteId, noteData, exit }: EditeNoteProps) => {
-  const { fetchEditNotes } = useEditOneNote();
-  const { form, handleChange, resetFormData } = useHandleForm();
-
-  // Preenche o formulário com os dados da nota ao abrir
-  useEffect(() => {
-    resetFormData();
-    Object.entries(noteData).forEach(([key, value]) => {
-      handleChange({
-        target: { name: key, value },
-      } as React.ChangeEvent<HTMLInputElement>);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [noteData]);
-
-  const handleSubmit = () => {
-    if (!form.title || !form.description) {
-      alert("Por favor, preencha todos os campos.");
-      return;
-    }
-    fetchEditNotes(noteId, form);
-  };
-
+export const EditNotes = ({ noteId, noteData, exit }: EditNoteProps) => {
+  const { form, handleSubmit, handleChange } = useEditeNote({
+    noteId,
+    noteData,
+    exit,
+  });
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50 shadow-md">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-2xl w-full">

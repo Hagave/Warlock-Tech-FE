@@ -4,7 +4,7 @@ import { Label } from "@/components/Label/label";
 import React from "react";
 import { createNotes } from "./createNotes";
 
-interface createNote {
+interface CreateNoteProps {
   form: { [key: string]: string };
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -18,10 +18,9 @@ export const CreateNotePage = ({
   handleChange,
   resetForm,
   exit,
-}: createNote) => {
+}: CreateNoteProps) => {
   const handleSend = async () => {
     const { ...userData } = form;
-
     const createdNote = await createNotes(userData);
 
     if (createdNote) {
