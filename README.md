@@ -1,5 +1,3 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 ## Descrição
 
 ### Frontend - Teste técnico Warlocks Tech
@@ -10,11 +8,11 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 Nota:
 
-Este é o guia para rodar o projeto local. Caso queira rodar ele com docker local, vá para a branch [PROD/DOCKER]()
+Este é o guia para rodar o projeto local. Caso queira rodar ele com docker, vá para a branch [PROD/DOCKER](https://github.com/Hagave/Warlock-Tech-FE/tree/prod/docker)
 
-prod/local <- você está aqui
+[prod/local ]() <- você está aqui
 
-prod/docker
+[prod/docker](https://github.com/Hagave/Warlock-Tech-FE/tree/prod/docker)
 
 ## Informações importantes
 
@@ -23,13 +21,14 @@ Istruções para rodar o Frontend do projeto Warlocks Tech
 Tecnologias
 
 Frontend:
-Next.js (v15), React,
 
-TypeScript
+Next.js (v15),
 
-Autenticação: JWT (via backend)
+TypeScript,
 
-Zustand: Para grenciamento de estados
+Autenticação: JWT (via backend),
+
+Zustand: Para grenciamento de estados,
 
 React-Toastify: Para emissão de avisos para o usuário
 
@@ -71,7 +70,7 @@ Rodar a aplicação (modo produção):
 npm run start
 ```
 
-A aplicação ficará disponível em http://localhost:3001, e você poderá fazer alterações no código que serão refletidas automaticamente.
+A aplicação ficará disponível em http://localhost:3001.
 
 ## Observações
 
