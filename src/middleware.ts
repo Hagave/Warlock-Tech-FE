@@ -23,7 +23,7 @@ export function middleware(request: NextRequest) {
   // Extraindo o token do cookie
   const cookie = request.headers.get("cookie");
   const cookies = cookie ? parse(cookie) : {};
-  const token = cookies.token; // Supondo que o token esteja no cookie como 'token'
+  const token = cookies.token;
 
   // Permite usuário acessar rotas públicas (sign-in, sign-up) sem estar autenticado
   if (!token && publicRoute) {
@@ -39,11 +39,8 @@ export function middleware(request: NextRequest) {
 
   // Se o usuário estiver autenticado, valida o token
   if (token && !publicRoute) {
-    return NextResponse.next();
-
-    //Aqui, poderiamos validar a data de expiracao do token
     try {
-      // Verifica se o token é válido usando o segredo JWT
+      return NextResponse.next();
       // jwt.verify(token, process.env.SECRET_KEY as string);
       // console.log("JWT Secret Key:", process.env.JWT_SECRET_KEY);
     } catch (error) {
@@ -54,11 +51,11 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  return NextResponse.next(); // Continua a requisição se o token for válido
+  return NextResponse.next();
 }
 
 export const config: MiddlewareConfig = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)", // Exclui essas rotas do middleware
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
   ],
 };

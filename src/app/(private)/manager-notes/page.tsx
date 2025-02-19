@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import { useNotes } from "./notes/getNotes";
+import { useNotes } from "../../../hooks/notes/useNotes";
 import { useHandleForm } from "@/hooks/useHandleForm";
 import { CreateNotePage } from "./notes/createNote";
 
 import Button from "@/components/Buttom/button";
-import { EditeNote } from "./notes/editeNote";
 import { useOpenClose } from "@/hooks/useOpenClose";
 import { DeleteNotes } from "./notes/deleteNotes";
 import { useConfirmChoice } from "@/models/deleteConfirmation/useDeleteConfirmatin";
 import ConfirmChoice from "@/models/deleteConfirmation/ConfirmChoice";
+import { EditNotes } from "./notes/EditNotes";
 
 const Page = () => {
   const { notes, fetchNotes } = useNotes();
@@ -94,7 +94,7 @@ const Page = () => {
             />
           )}
           {showForm.EditeNote && selectedNote && (
-            <EditeNote
+            <EditNotes
               noteId={selectedNote.noteId}
               noteData={{
                 title: selectedNote.title,

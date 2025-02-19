@@ -5,7 +5,7 @@ import { Label } from "@/components/Label/label";
 import { useHandleForm } from "@/hooks/useHandleForm";
 import { toastError } from "@/util/toastify";
 import React, { useState } from "react";
-import { Login } from "./Login";
+import { signIn } from "./signIn";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -18,7 +18,7 @@ const Page = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await Login(form);
+      await signIn(form);
       resetFormData();
       router.push("/home");
     } catch (error) {

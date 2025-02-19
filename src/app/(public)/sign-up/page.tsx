@@ -1,44 +1,12 @@
 "use client";
-
-import { useState } from "react";
-import { useHandleForm } from "@/hooks/useHandleForm"; // Importando o hook
 import { Input } from "@/components/Input/input";
 import { Label } from "@/components/Label/label";
 import Link from "next/link";
 import Button from "@/components/Buttom/button";
-import { checkPasswordsMatch } from "@/util/checkpassword";
-import { toastInfo } from "@/util/toastify";
-import { useRouter } from "next/navigation";
-import { createUser } from "./createUser";
+import { useSignin } from "@/hooks/sign-in/useSignIn";
 
 const Page = () => {
-  const { form, handleChange, resetFormData } = useHandleForm();
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      if (!checkPasswordsMatch(form.password, form.confirmPassword)) {
-        toastInfo("Verifique sua senha. Elas devem ser as mesmas!");
-        return;
-      }
-
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { confirmPassword, ...userData } = form;
-
-      await createUser(userData);
-      resetFormData();
-      setLoading(false);
-      router.push("sign-in");
-    } catch (error) {
-      console.log(
-        "Houve um erro inesperado. Por favor, atualize a pagina e tente novamente",
-        error
-      );
-    }
-  };
+  const { handleSubmit, form, handleChange, loading } = useSignin();
 
   return (
     <div className="w-screen min-h-screen flex flex-col">

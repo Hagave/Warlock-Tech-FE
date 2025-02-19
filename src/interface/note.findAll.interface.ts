@@ -1,11 +1,11 @@
 import { ICreateNote } from "./note.create.interface";
 
-export interface IPatchNotes extends ICreateNote {
-  updateUserNote: {
+export interface INoteFindAll extends ICreateNote {
+  sanitizedNotes: {
     createdAt: string;
     description: string;
     noteId: number;
     title: string;
     updatedAt: string;
-  };
+  }[];
 }
