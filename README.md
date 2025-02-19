@@ -8,19 +8,19 @@
 
 Nota:
 
-Este é o guia para rodar o projeto local. Caso queira rodar ele com docker, vá para a branch [PROD/DOCKER](https://github.com/Hagave/Warlock-Tech-FE/tree/prod/docker)
+Este é o guia para rodar o projeto com docker. Caso queira rodar ele local, vá para a branch [PROD/LOCAL](https://github.com/Hagave/Warlock-Tech-FE/tree/prod/local)
 
-[prod/local ]() <- você está aqui
+[prod/ local](https://github.com/Hagave/Warlock-Tech-FE/tree/prod/local)
 
-[prod/docker](https://github.com/Hagave/Warlock-Tech-FE/tree/prod/docker)
+[prod/docker ]() <- você está aqui
 
 ## Informações importantes
 
-Istruções para rodar o Frontend do projeto Warlocks Tech
+#### Certifique-se que o backend esteja rodando e as migrações do prisma tenham sido feitas. Existe um readme detalhando como fazer. Caso contrário, você encontrará um erro 500(server-side) ao tentar criar uma conta e acessar o sistema.
 
-Tecnologias
+Instruções para rodar o Frontend do projeto Warlocks Tech
 
-Frontend:
+Tecnologias:
 
 Next.js (v15),
 
@@ -32,18 +32,22 @@ Zustand: Para grenciamento de estados,
 
 React-Toastify: Para emissão de avisos para o usuário
 
+Docker:Para criação do container
+
+Docker-Compose: Para gerenciamento do container
+
 ## Pré-requisitos
 
 ### Antes de começar, você precisa ter os seguintes softwares instalados na sua máquina:
 
 [Node.js](https://nodejs.org/pt/download) (v18 ou superior)
 
-## Instalação Local
+## Como rodar a aplicação.
 
 Clone o repositório:
 
 ```bash
-git clone https://github.com/Hagave/Warlock-Tech-FE/tree/prod/local
+git clone https://github.com/Hagave/Warlock-Tech-FE/tree/prod/docker
 ```
 
 Certifique que esteja na pasta frontend
@@ -55,19 +59,7 @@ cd frontend/
 Instale as dependências:
 
 ```bash
-npm install
-```
-
-Build o projeto
-
-```bash
-npm run build
-```
-
-Rodar a aplicação (modo produção):
-
-```bash
-npm run start
+docker-compose up --build -d
 ```
 
 A aplicação ficará disponível em http://localhost:3001.
