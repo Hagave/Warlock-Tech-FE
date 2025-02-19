@@ -1,12 +1,12 @@
-import { NotesApi } from "@/interface/note.interface";
+import { INoteFindAll } from "@/interface/note.findAll.interface";
 import { axiosClient } from "@/services/axiosClient";
 import { useUserStore } from "@/store/useStore";
-import { toastError } from "@/util/toastify";
+import { toastError, toastInfo, toastWarning } from "@/util/toastify";
 import { useEffect, useState } from "react";
 
 export const useNotes = () => {
-  const api = process.env.NEXT_PUBLIC_GET_ALL_NOTES || "/notes";
-  const [notes, setNotes] = useState<NotesApi[]>([]);
+  const api = process.env.NEXT_PUBLIC_GET_ALL_NOTES;
+  const [notes, setNotes] = useState<INoteFindAll>();
   const { user } = useUserStore.getState();
 
   const fetchNotes = async () => {
@@ -15,15 +15,21 @@ export const useNotes = () => {
     }
 
     try {
-      const response = await axiosClient.get(api);
-      setNotes(response.data.userNotes);
-      console.log(response.data);
+      const response = await axiosClient.get(`${api}`);
+
+      if (!response.data.success) {
+        toastInfo(`${response.data.message}`);
+        return;
+      }
+      setNotes(response.data.sanitizedNotes);
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.response?.status === 401) {
-        toastError("Você está deslogado!");
+        toastWarning("Seu token expirou. Refaça o login!");
+        return;
       } else {
-        console.error("Erro ao buscar notas:", error);
+        toastError(`Erro ao buscar notas: ${error}`);
       }
     }
   };

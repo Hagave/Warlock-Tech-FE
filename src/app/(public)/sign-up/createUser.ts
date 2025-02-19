@@ -1,15 +1,29 @@
-import { SigninApi } from "@/interface/login.interface";
+import { ISignUp } from "@/interface/sign-up.interface";
 import { axiosSignin } from "@/services/axiosClient";
-import { toastError, toastSuccess } from "@/util/toastify";
+import {
+  toastError,
+  toastInfo,
+  toastSuccess,
+  toastWarning,
+} from "@/util/toastify";
 
 export const createUser = async (userData: object) => {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_SIGN_UP || "/users/sign-up";
+    const apiUrl = process.env.NEXT_PUBLIC_API_SIGN_UP;
 
-    await axiosSignin.post<SigninApi>(`${apiUrl}`, userData);
+    const response = await axiosSignin.post<ISignUp>(`${apiUrl}`, userData);
 
-    toastSuccess("Usuário criado com sucesso!");
-  } catch (error) {
-    toastError(`Erro ao criar o usuário ${error}`);
+    if (!response.data.success) {
+      toastInfo(`${response.data.message}`);
+
+      return;
+    }
+    toastSuccess(`${response.data.message}`);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    if (error.response?.status === 401) {
+      toastWarning("Seu token expirou. Refaça o login!");
+    }
+    toastError(`Houve um erro inesperado - ${error}`);
   }
 };
